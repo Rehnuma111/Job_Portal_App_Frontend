@@ -7,10 +7,13 @@ import {
 } from "@/components/ui/popover";
 import { LogOut, LogOutIcon, User2 } from "lucide-react";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const user = false;
+  // const user = true;
+  const { user } = useSelector(store=>store.auth);
+
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
@@ -21,9 +24,18 @@ const Navbar = () => {
         </div>
         <div>
           <ul className="flex font-semibold items-center gap-4">
-            <li>Homs</li>
-            <li>Jobs</li>
-            <li>Browse</li>
+            <li>
+              {" "}
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/browse">Browse</Link>
+            </li>
 
             {!user ? (
               <div className="flex gap-2 ml-4">
@@ -62,7 +74,7 @@ const Navbar = () => {
                   </div>
                   <div className="flex w-fit items-center gap-2 curson-pointer">
                     <User2 />
-                    <Button variant="link">View Profile</Button>
+                    <Button variant="link"><Link to ="/profile">View Profile</Link></Button>
                   </div>
                   <div className="flex w-fit items-center gap-2 curson-pointer">
                     <LogOutIcon />

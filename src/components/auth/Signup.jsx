@@ -1,11 +1,15 @@
 import Navbar from "../shared/Navbar";
 import { RadioGroup } from "../ui/radio-group";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { USER_API_ENDPOINT } from "@/utils/constant";
+import axios from "axios";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -20,14 +24,18 @@ const Signup = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  const { loading } = useSelector((store) => store.auth);
 
   const changeFileHandler = (e) => {
     setInput({ ...input, file: e.target.files?.[0] });
   };
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(input);
+    console.log(input);
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
@@ -39,10 +47,22 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post(`${USER_API_ENDPOINT / register}` , formData,{
-        Headers:""
+      dispatch(setLoading(true));
+
+      const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       });
-    } catch (error) {}
+      if (res.data.success) {
+        navigate("/login");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    finally{
+            dispatch(setLoading(false));
+    }
   };
   return (
     <div>
@@ -128,9 +148,16 @@ const Signup = () => {
               />
             </div>
           </div>
-          <Button type="submit" className="w-full my-4">
-            Signup
-          </Button>
+          {loading ? (
+            <Button className="w-full my-4">
+              {" "}
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-4">
+              SignUp
+            </Button>
+          )}
 
           <span className="text-sm">
             Already have an account?
