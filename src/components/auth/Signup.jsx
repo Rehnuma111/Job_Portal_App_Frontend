@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -48,7 +49,6 @@ const Signup = () => {
 
     try {
       dispatch(setLoading(true));
-
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -59,9 +59,8 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
-    }
-    finally{
-            dispatch(setLoading(false));
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (

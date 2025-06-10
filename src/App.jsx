@@ -13,7 +13,7 @@ const appRouter = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
   { path: "/jobs", element: <Jobs /> },
-  { path: "/jobs/description/:id", element: <JobDescription /> },
+  { path: "/description/:id", element: <JobDescription /> },
   { path: "/browse", element: <Browse /> },
   { path: "/profile", element: <Profile /> },
   { path: "*", element: <NotFound /> },
