@@ -26,7 +26,7 @@ const Navbar = () => {
           <ul className="flex font-semibold items-center gap-4">
             <li>
               {" "}
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               {" "}

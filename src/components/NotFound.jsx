@@ -21,7 +21,7 @@ const NotFound = () => {
         Oops! E Page na ba... 😢
       </p>
       <button
-        onClick={() => navigate('/home')}
+        onClick={() => navigate('/')}
         style={{
           marginTop: '20px',
           padding: '10px 20px',

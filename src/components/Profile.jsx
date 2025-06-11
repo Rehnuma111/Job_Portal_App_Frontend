@@ -6,12 +6,14 @@ import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
+import { useSelector } from "react-redux";
 
 const skills = ["HTml", "CSS", "Javascript", "React js"];
 const isResume = true;
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useSelector((store) => store.auth);
 
   return (
     <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8">
@@ -24,7 +26,7 @@ const Profile = () => {
             />
           </Avatar>
           <div>
-            <h1 className="font-medium text-xl">Full Name</h1>
+            <h1 className="font-medium text-xl">{user?.fullName}</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores,
               omnis culpa deserunt ducimus, qui neque nostrum voluptas officia
@@ -41,14 +43,14 @@ const Profile = () => {
           <Pen />
         </Button>
       </div>
-      <div>
+      <div className="flex items-center justify-between my-5">
         <div>
           <Mail />
-          <span>patel@gmail.com</span>
+          <span>{user?.email}</span>
         </div>
         <div>
           <Contact />
-          <span>7665565445434</span>
+          <span>{user?.phoneNumber}</span>
         </div>
       </div>
       <div>

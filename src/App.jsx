@@ -9,7 +9,7 @@ import Profile from "./components/Profile";
 import JobDescription from "./components/JobDescription";
 
 const appRouter = createBrowserRouter([
-  { path: "/home", element: <Home /> },
+  { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
   { path: "/jobs", element: <Jobs /> },
