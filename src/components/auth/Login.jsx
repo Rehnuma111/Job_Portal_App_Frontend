@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../shared/Navbar";
 import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,43 +11,62 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser, setLoading } from "@/redux/authSlice";
 import { Loader2 } from "lucide-react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Login = () => {
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-    role: "",
-  });
-  const changeEventHandler = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
+  // const [input, setInput] = useState({
+  //   email: "",
+  //   password: "",
+  //   role: "",
+  // });
+  // const changeEventHandler = (e) => {
+  //   setInput({ ...input, [e.target.name]: e.target.value });
+  // };
   const { loading, user } = useSelector((store) => store.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    // console.log(input);
-
-    try {
-      dispatch(setLoading(true));
-
-      const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      });
-      if (res.data.success) {
-        dispatch(setAuthUser(res.data.user));
-        navigate("/");
-        toast.success(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch(setLoading(false));
-    }
+  const initialValues = {
+    email: "",
+    password: "",
+    role: "student",
   };
+  const loginSchema = Yup.object({
+    email: Yup.string().email("Invalid email format"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    role: Yup.string().oneOf(["student", "recruiter"], "Invalid role"),
+  });
+
+  const { values, handleChange, handleSubmit, touched, errors } = useFormik({
+    initialValues,
+    validationSchema: loginSchema,
+    onSubmit: async (values) => {
+      console.log("Form submitted with values:", values);
+      try {
+        dispatch(setLoading(true));
+        const res = await axios.post(`${USER_API_ENDPOINT}/login`, values, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        });
+        if (res.data.success) {
+          dispatch(setAuthUser(res.data.user));
+          navigate("/");
+          toast.success(res.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(
+          error.response?.data?.message || "Something went wrong, please try again."
+        )
+      } finally {
+        dispatch(setLoading(false));
+      }
+    },
+  });
 
   useEffect(() => {
     console.log("user", user);
@@ -58,7 +77,7 @@ const Login = () => {
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
-          onSubmit={submitHandler}
+          onSubmit={handleSubmit}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
           <h1 className="font-bold text-xl mb-5">Login</h1>
@@ -68,21 +87,27 @@ const Login = () => {
             <Input
               type="email"
               name="email"
-              value={input.email}
+              value={values.email}
               placeholder="patel@gmail.com"
-              onChange={changeEventHandler}
+              onChange={handleChange}
             />
+            {touched.email && errors.email && (
+              <div className="text-red-500 text-xs">{errors.email}</div>
+            )}
           </div>
 
           <div className="my-2">
             <Label className="my-3">Password</Label>
             <Input
               type="password"
-              value={input.password}
+              value={values.password}
               name="password"
-              onChange={changeEventHandler}
+              onChange={handleChange}
               placeholder="patel@gmail.com"
             />
+            {touched.email && errors.email && (
+              <div className="text-red-500 text-xs">{errors.email}</div>
+            )}
           </div>
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
@@ -91,8 +116,8 @@ const Login = () => {
                   type="radio"
                   name="role"
                   value="student"
-                  checked={input.role === "student"}
-                  onChange={changeEventHandler}
+                  checked={values.role === "student"}
+                  onChange={handleChange}
                   className="cursor-pointer"
                 />
                 <Label htmlFor="r1">Student</Label>
@@ -102,8 +127,8 @@ const Login = () => {
                   type="radio"
                   name="role"
                   value="recruiter"
-                  checked={input.role === "recruiter"}
-                  onChange={changeEventHandler}
+                  checked={values.role === "recruiter"}
+                  onChange={handleChange}
                   className="cursor-pointer"
                 />
                 <Label htmlFor="r2">Recruiter</Label>

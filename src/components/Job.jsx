@@ -9,12 +9,21 @@ const Job = ({ job }) => {
   const navigate = useNavigate();
   console.log("job", job);
 
-  const jobId = "ugtftvb";
+  const daysAgoFunction = (mongoTime) => {
+    const createdAt = new Date(mongoTime);
+    const currenTime = new Date();
+    const timeDifference = currenTime - createdAt;
+    return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
+  };
+
+  // const jobId = "ugtftvb";
   return (
     <div>
       <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-500">2Days Ago</p>
+          <p className="text-sm text-gray-500">
+            {job?.createdAt === 0 ? "Today" : ` ${daysAgoFunction(job?.createdAt)}`} Days Ago
+          </p>
           <Button variant="outline" className="rounded-full" size="icon">
             <Bookmark />
           </Button>
@@ -23,7 +32,7 @@ const Job = ({ job }) => {
         <div className="flex items-center gap-2 my-2">
           <Button className="p-6" variant="outline" size="icon">
             <Avatar>
-              <AvatarImage src="" />
+              <AvatarImage src={job?.company?.logo} />
             </Avatar>
           </Button>
           <div>
