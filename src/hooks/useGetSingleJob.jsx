@@ -1,4 +1,4 @@
-import { setAllJobs, setSingleJobs } from "@/redux/jobSLice";
+import { setAllJobs, setSingleJobs } from "@/redux/jobSlice";
 import { JOB_API_ENDPOINT } from "@/utils/constant";
 import axios from "axios";
 import React, { useEffect } from "react";

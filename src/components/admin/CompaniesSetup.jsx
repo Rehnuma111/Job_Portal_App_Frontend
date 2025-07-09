@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import { Button } from "../ui/button";
@@ -29,9 +29,10 @@ const CompaniesSetup = () => {
   });
 
   const { singleCompany } = useSelector((store) => store.company);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-const [preview, setPreview] = useState(location.state?.logo || "");
+  const [preview, setPreview] = useState(location.state?.logo || "");
+
+  const dispatch = useDispatch();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -58,7 +59,7 @@ const [preview, setPreview] = useState(location.state?.logo || "");
       formData.append("file", input.file);
     }
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       const res = await axios.put(
         `${COMPANY_API_ENDPOINT}/update/${params.id}`,
         formData,
@@ -77,7 +78,7 @@ const [preview, setPreview] = useState(location.state?.logo || "");
       console.log(error);
       toast.error(error.response.data.message);
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
   useEffect(() => {
@@ -159,16 +160,9 @@ const [preview, setPreview] = useState(location.state?.logo || "");
               </Avatar>
             </div>
           </div>
-          {loading ? (
-            <Button className="w-full my-4">
-              {" "}
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
-            </Button>
-          ) : (
-            <Button type="submit" className="w-full my-4">
-              Update
-            </Button>
-          )}
+          <Button type="submit" className="w-full my-4">
+            Update
+          </Button>
         </form>
       </div>
     </div>

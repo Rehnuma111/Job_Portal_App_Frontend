@@ -12,7 +12,6 @@ import { Loader2 } from "lucide-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "@/redux/authSlice";
 import axios from "axios";
 import { toast } from "sonner";
 import { GoogleLogin } from "@react-oauth/google";
@@ -215,7 +214,7 @@ const Signup = () => {
             <div className="flex-grow h-px bg-gray-300" />
           </div>
          
-            <GoogleLogin
+            {/* <GoogleLogin
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
                 toast.success("Signed up with Google!");
@@ -228,7 +227,7 @@ const Signup = () => {
               text="signup_with"
               shape="rectangular"
               size="large"
-            />
+            /> */}
         
           <span className="text-sm">
             Already have an account?

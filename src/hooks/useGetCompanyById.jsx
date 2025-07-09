@@ -9,6 +9,7 @@ const useGetCompanyById = (companyId) => {
     useEffect(()=>{
         const fetchSingleCompany = async () => {
             try {
+                dispatch(setLoading(true));
                 const res = await axios.get(`${COMPANY_API_ENDPOINT}/get/${companyId}`,{withCredentials:true});
                 console.log(res.data.company);
                 if(res.data.success){
@@ -16,6 +17,8 @@ const useGetCompanyById = (companyId) => {
                 }
             } catch (error) {
                 console.log(error);
+            } finally {
+                dispatch(setLoading(false));
             }
         }
         fetchSingleCompany();

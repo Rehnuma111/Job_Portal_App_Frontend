@@ -6,7 +6,7 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import { motion } from "framer-motion";
 const LatestJobsCards = ({ job }) => {
   const navigate = useNavigate();
-  console.log("Job Card:", job);
+  // console.log("Job Card:", job);
 
   return (
     <div

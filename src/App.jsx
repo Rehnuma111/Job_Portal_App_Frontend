@@ -13,6 +13,8 @@ import CompaniesSetup from "./components/admin/CompaniesSetup";
 import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
+// import { useSelector } from 'react-redux';
+// import Loader from './components/ui/Loader';
 
 const appRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -51,8 +53,10 @@ const appRouter = createBrowserRouter([
 ]);
 
 function App() {
+  // const isLoading = useSelector(state => state.loader.isLoading);
   return (
     <>
+      {/* {isLoading && <Loader />} */}
       <RouterProvider router={appRouter} />
     </>
   );

@@ -3,56 +3,51 @@ import React from "react";
 import { Label } from "./ui/label";
 import { motion } from "framer-motion";
 
-const filterData = [
-  {
-    filterType: "Location",
-    array: ["Delhi NCR", "Noida", "Mumbai", "Pune", "Goa"],
-  },
-  {
-    filterType: "Industry",
-    array: ["Frontend Developer", "Backend Developer", "Full Stack Developer"],
-  },
-  {
-    filterType: "Salary",
-    array: ["0-40k", "42-1lakh", "1lakh to 5lakh"],
-  },
-];
-
-const FilterCard = () => {
+const FilterCard = ({ filterData, filters, setFilters }) => {
   return (
     <div>
       <div className="w-full bg-white p-3 rounded-md">
         <h1 className="font-bold text-lg">Filter Jobs</h1>
         <hr className="mt-3" />
+
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.3 }}
         >
-          {filterData.map((item, index) => {
-            return (
+          {filterData.map((filter, index) => (
+            <div key={index} className="my-4">
+              <Label className="font-semibold text-gray-700">
+                {filter.filterType}
+              </Label>
+
               <RadioGroup
-                defaultValue={item.array[0]}
-                key={index}
-                className="my-3"
+                className="flex flex-col gap-2 mt-2"
+                value={filters[filter.filterType] || ""}
+                onValueChange={(value) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    [filter.filterType]: value,
+                  }))
+                }
               >
-                <div>
-                  <h1 className="text-xl font-bold mb-2">{item.filterType}</h1>
-                  {item.array.map((item, idx) => {
-                    return (
-                      <div key={idx} className="flex items-center space-x-2">
-                        <div className="flex items-center space-x-2 mt-2">
-                          <RadioGroupItem value={item} id={idx} />
-                          <Label>{item}</Label>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                {filter.array.map((option, idx) => (
+                  <div key={idx} className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value={option.toString()}
+                      id={`${filter.filterType}-${idx}`}
+                    />
+                    <Label htmlFor={`${filter.filterType}-${idx}`}>
+                      {typeof option === "number"
+                        ? `₹ ${option.toLocaleString()}`
+                        : option}
+                    </Label>
+                  </div>
+                ))}
               </RadioGroup>
-            );
-          })}
+            </div>
+          ))}
         </motion.div>
       </div>
     </div>

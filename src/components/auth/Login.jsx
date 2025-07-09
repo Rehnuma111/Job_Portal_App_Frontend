@@ -15,14 +15,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const Login = () => {
-  // const [input, setInput] = useState({
-  //   email: "",
-  //   password: "",
-  //   role: "",
-  // });
-  // const changeEventHandler = (e) => {
-  //   setInput({ ...input, [e.target.name]: e.target.value });
-  // };
+
   const { loading, user } = useSelector((store) => store.auth);
 
   const navigate = useNavigate();

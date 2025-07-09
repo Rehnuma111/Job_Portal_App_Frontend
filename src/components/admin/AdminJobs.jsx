@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import useGetallAdminJobs from "@/hooks/useGetAllAdminJobs";
 import AdminJobsTable from "./AdminJobsTable";
 import useGetallCompanies from "@/hooks/useGetAllCompany";
-import { setSearchJobByText } from "@/redux/jobSLice";
+import { setSearchJobByText } from "@/redux/jobSlice";
 
 const AdminJobs = () => {
 

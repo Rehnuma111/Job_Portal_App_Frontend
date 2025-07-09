@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import Navbar from "./shared/Navbar";
 import useGetAppliedJobs from "@/hooks/useGetAllAppliedJobs";
 
-const isResume = true;
+const isResume = true;    
 
 const Profile = () => {
   useGetAppliedJobs();

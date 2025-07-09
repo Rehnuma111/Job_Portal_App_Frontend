@@ -1,3 +1,4 @@
+import { setLoading } from "@/redux/authSlice";
 import { setCompanies } from "@/redux/companySlice";
 import { COMPANY_API_ENDPOINT, JOB_API_ENDPOINT } from "@/utils/constant";
 import axios from "axios";
@@ -9,6 +10,7 @@ const useGetallCompanies = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
+        dispatch(setLoading(true));
         const res = await axios.get(`${COMPANY_API_ENDPOINT}/get`, {
           withCredentials: true,
         });
@@ -19,6 +21,8 @@ const useGetallCompanies = () => {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
     fetchCompanies();
