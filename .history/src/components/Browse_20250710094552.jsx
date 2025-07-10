@@ -3,7 +3,7 @@ import Navbar from "./shared/Navbar";
 import Job from "./Job";
 import useGetallJobs from "@/hooks/useGetAllJobs";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "@/redux/jobSlice";
+import { setSearchQuery } from "@/redux/jobSLice";
 
 // const randomJobs = [1, 2, 3];
 
