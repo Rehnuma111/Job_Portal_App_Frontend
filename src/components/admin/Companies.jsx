@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import CompaniesTable from "./CompaniesTable";
 import { Input } from "../ui/input";
@@ -17,26 +17,37 @@ const Companies = () => {
 
   useEffect(() => {
     dispatch(setSearchCompanyByText(input));
-  }, [input]);
-  
-  
+  }, [input, dispatch]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-[#f8fafc] to-[#e3e0ff] flex flex-col">
       <Navbar />
-
-      <div className="max-w-6xl mx-auto my-10">
-        <div className="flex items-center justify-between my-5">
-          <Input
-            className="w-fit"
-            placeholder="Filter by name"
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <Button onClick={() => navigate("/admin/companies/create")}>
-            New Company
-          </Button>
+      <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col p-2 md:p-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 mt-4">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-[#4B2996] drop-shadow-lg tracking-tight">
+            Admin: Manage Companies
+          </h1>
+          <div className="flex flex-col sm:flex-row gap-2 items-center w-full sm:w-auto">
+            <Input
+              type="text"
+              placeholder="Search companies..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="rounded-xl shadow-sm w-full sm:w-64 border border-gray-300 focus:ring-2 focus:ring-[#4B2996]/30 bg-[#f6f4fd] text-[#2d1a4d] placeholder:text-[#b3a6d9]"
+            />
+            <Button
+              className="bg-gradient-to-r from-[#6A38C2] to-[#F83002] text-white rounded-xl shadow-md hover:from-[#4B2996] hover:to-[#c72a00] w-full sm:w-auto font-semibold px-6 py-2 border-0"
+              onClick={() => navigate("/admin/companies/create")}
+            >
+              + New Company
+            </Button>
+          </div>
         </div>
-        <CompaniesTable />
+        {/* Table Card */}
+        <div className="bg-white p-2 md:p-8 border border-gray-100 overflow-x-auto transition-all duration-300">
+          <CompaniesTable />
+        </div>
       </div>
     </div>
   );

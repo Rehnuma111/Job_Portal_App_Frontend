@@ -51,59 +51,77 @@ const CompaniesTable = () => {
   }, [companies, searchCompanyByText]);
 
   return (
-    <div>
-      <Table>
-        <TableCaption>A list of your recent.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Logo</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filterCompany?.map((company) => (
-            <tr key={company?.id}>
-              <TableCell>
-                <Avatar>
-                  <AvatarImage src={company.logo} />
-                </Avatar>
-              </TableCell>
-              <TableCell>{company.name}</TableCell>
-              <TableCell>{company.createdAt.split("T")[0]}</TableCell>
-              <TableCell className="text-right cursor-pointer">
-                <Popover>
-                  <PopoverTrigger>
-                    <MoreHorizontal />
-                  </PopoverTrigger>
-                  <PopoverContent className="w-45">
-                    <div
-                      onClick={() =>
-                        navigate(`/admin/companies/${company._id}`, {
-                          state: company,
-                        })
-                      }
-                      className="flex items-center gap-2 w-fit cursor-pointer"
-                    >
-                      <Edit2 className="w-4" />
-                      <span>Edit</span>
-                    </div>
-                    
-                    <div
-                      onClick={() => handleDelete(company._id)}
-                      className="flex items-center gap-2 cursor-pointer text-red-600"
-                    >
-                      <Trash2 className="w-4" />
-                      <span>Delete</span>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </TableCell>
-            </tr>
-          ))}
-        </TableBody>
-      </Table>
+    <div className="overflow-x-auto font-sans">
+      <div className="bg-white/95 rounded-2xl shadow-2xl border border-gray-100 p-2 md:p-8">
+        <Table className="min-w-full font-sans">
+          <TableCaption className="text-[#4B2996] font-semibold mb-2 font-sans">
+            A list of your recent companies.
+          </TableCaption>
+          <TableHeader>
+            <TableRow className="bg-gradient-to-r from-[#ede9fe] to-[#f6f4fd]">
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 pl-4 font-sans">
+                Logo
+              </TableHead>
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">
+                Name
+              </TableHead>
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">
+                Date
+              </TableHead>
+              <TableHead className="text-right text-[#4B2996] font-bold text-base tracking-wide py-4 pr-4 font-sans">
+                Action
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filterCompany?.map((company) => (
+              <tr
+                key={company?._id}
+                className="group border-b last:border-b-0 border-gray-100 hover:bg-[#f6f4fd] transition-colors text-[#2d1a4d] font-medium align-middle font-sans"
+              >
+                <TableCell className="py-3 pl-4">
+                  <Avatar style={{ width: 48, height: 48 }}>
+                    <AvatarImage src={company.logo} />
+                  </Avatar>
+                </TableCell>
+                <TableCell className="text-[#2d1a4d] font-semibold text-base font-sans">
+                  {company.name}
+                </TableCell>
+                <TableCell className="text-[#6A38C2] text-base font-sans">
+                  {company.createdAt.split("T")[0]}
+                </TableCell>
+                <TableCell className="text-right pr-4">
+                  <Popover>
+                    <PopoverTrigger>
+                      <MoreHorizontal className="text-[#4B2996] group-hover:text-[#6A38C2] transition-colors" />
+                    </PopoverTrigger>
+                    <PopoverContent className="w-44 bg-white border border-gray-200 rounded-xl shadow-lg font-sans">
+                      <div
+                        onClick={() =>
+                          navigate(`/admin/companies/${company._id}`, {
+                            state: company,
+                          })
+                        }
+                        className="flex items-center gap-2 w-fit cursor-pointer hover:text-[#6A38C2] text-base font-sans"
+                      >
+                        <Edit2 className="w-4" />
+                        <span>Edit</span>
+                      </div>
+                      <div
+                        onClick={() => handleDelete(company._id)}
+                        className="flex items-center gap-2 cursor-pointer text-red-600 hover:text-red-800 mt-2 text-base font-sans"
+                      >
+                        <Trash2 className="w-4" />
+                        <span>Delete</span>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </TableCell>
+              </tr>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

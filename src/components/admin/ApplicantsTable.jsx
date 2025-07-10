@@ -44,74 +44,75 @@ const ApplicantsTable = () => {
   };
 
   return (
-    <div>
-      <Table>
-        <TableCaption>A list of your recently applied users</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Full Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Contact</TableHead>
-            <TableHead>Resume</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-
-        <TableBody>
-          {applications.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={6} className="text-center">
-                No applicants found.
-              </TableCell>
+    <div className="overflow-x-auto font-sans">
+      <div className="bg-white/95 rounded-2xl shadow-2xl border border-gray-100 p-2 md:p-8">
+        <Table className="min-w-full font-sans">
+          <TableCaption className="text-[#4B2996] font-semibold mb-2 font-sans">A list of your recently applied users</TableCaption>
+          <TableHeader>
+            <TableRow className="bg-gradient-to-r from-[#ede9fe] to-[#f6f4fd]">
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 pl-4 font-sans">Full Name</TableHead>
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">Email</TableHead>
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">Contact</TableHead>
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">Resume</TableHead>
+              <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">Date</TableHead>
+              <TableHead className="text-right text-[#4B2996] font-bold text-base tracking-wide py-4 pr-4 font-sans">Action</TableHead>
             </TableRow>
-          ) : (
-            applications.map((application, index) => {
-              const applicant = application.applicant;
-              return (
-                <TableRow key={index}>
-                  <TableCell>{applicant.fullName}</TableCell>
-                  <TableCell>{applicant.email}</TableCell>
-                  <TableCell>{applicant.phoneNumber}</TableCell>
-                  <TableCell>
-                    <a
-                      href={applicant.resume || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 underline"
-                    >
-                      {applicant.resume ? "View" : "N/A"}
-                    </a>
-                  </TableCell>
-                  <TableCell>
-                    {new Date(application.createdAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Popover>
-                      <PopoverTrigger>
-                        <MoreHorizontal />
-                      </PopoverTrigger>
-                      <PopoverContent className="w-32">
-                        {shortListingStatus.map((status, idx) => (
-                          <div
-                            key={idx}
-                            className="cursor-pointer hover:bg-gray-100 p-2"
-                            onClick={() => {
-                              statusHandler(status, application._id);
-                            }}
-                          >
-                            {status}
-                          </div>
-                        ))}
-                      </PopoverContent>
-                    </Popover>
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {applications.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-8 text-[#2d1a4d] font-semibold font-sans">
+                  No applicants found.
+                </TableCell>
+              </TableRow>
+            ) : (
+              applications.map((application, index) => {
+                const applicant = application.applicant;
+                return (
+                  <TableRow key={index} className="group border-b last:border-b-0 border-gray-100 hover:bg-[#f6f4fd] transition-colors text-[#2d1a4d] font-medium align-middle font-sans">
+                    <TableCell className="py-3 pl-4 font-sans">{applicant.fullName}</TableCell>
+                    <TableCell className="font-sans">{applicant.email}</TableCell>
+                    <TableCell className="font-sans">{applicant.phoneNumber}</TableCell>
+                    <TableCell className="font-sans">
+                      <a
+                        href={applicant.resume || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#6A38C2] underline hover:text-[#4B2996] font-sans"
+                      >
+                        {applicant.resume ? "View" : "N/A"}
+                      </a>
+                    </TableCell>
+                    <TableCell className="font-sans">
+                      {new Date(application.createdAt).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-right pr-4 font-sans">
+                      <Popover>
+                        <PopoverTrigger>
+                          <MoreHorizontal className="text-[#4B2996] group-hover:text-[#6A38C2] transition-colors" />
+                        </PopoverTrigger>
+                        <PopoverContent className="w-44 bg-white border border-gray-200 rounded-xl shadow-lg font-sans">
+                          {shortListingStatus.map((status, idx) => (
+                            <div
+                              key={idx}
+                              className="cursor-pointer hover:bg-[#ede9fe] p-2 rounded text-base text-[#2d1a4d] hover:text-[#4B2996] font-sans"
+                              onClick={() => {
+                                statusHandler(status, application._id);
+                              }}
+                            >
+                              {status}
+                            </div>
+                          ))}
+                        </PopoverContent>
+                      </Popover>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import JobSearchBar from "./JobSearchBar";
 import axios from "axios";
 import { JOB_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
 
 const Jobs = () => {
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
@@ -21,7 +22,7 @@ const Jobs = () => {
     maxSalary: "",
   });
 
-  const [filterData, setFilterData] = useState([]); // From API
+  const [filterData, setFilterData] = useState([]);
 
   // Search job API call
   const handleSearch = async () => {
@@ -51,35 +52,40 @@ const Jobs = () => {
         setFilterData(res.data);
       } catch (error) {
         console.log(error);
+        toast.error("Failed to fetch filter options", error);
       }
     };
     getFilteredOptions();
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-7xl mx-auto mt-5">
+      <div className="max-w-7xl mx-auto mt-5 px-2 sm:px-4">
         <JobSearchBar
           filter={filters}
-          setFilters={setFilters}  
+          setFilters={setFilters}
           onSearch={handleSearch}
         />
 
-        <div className="flex gap-5">
-          <div className="w-[20%]">
+        <div className="flex flex-col lg:flex-row gap-5 mt-4">
+          {/* Sidebar filter - responsive: full width on mobile, 1/4 on desktop */}
+          <div className="w-full lg:w-1/4 mb-4 lg:mb-0">
             <FilterCard
-              filterData={filterData}   // ✅ pass filter data (static)
-              filters={filters}         // ✅ pass selected values
+              filterData={filterData}
+              filters={filters}
               setFilters={setFilters}
             />
           </div>
 
-          <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
-            {filterJobs.length <= 0 ? (
-              <span>Job not found</span>
+          {/* Job grid - responsive */}
+          <div className="flex-1 h-[60vh] md:h-[75vh] lg:h-[88vh] overflow-y-auto pb-5">
+            {filterJobs.length === 0 ? (
+              <div className="text-center mt-10 text-gray-500 text-lg">
+                ❌ No jobs found. Try changing your filters.
+              </div>
             ) : (
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filterJobs.map((job) => (
                   <motion.div
                     initial={{ opacity: 0, x: 100 }}

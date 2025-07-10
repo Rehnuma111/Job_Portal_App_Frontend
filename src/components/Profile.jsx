@@ -21,53 +21,59 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-4">
-            <Avatar className="h-24 w-24">
+      <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-4 sm:p-8">
+        {/* Profile header */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <Avatar className="h-20 w-20 sm:h-24 sm:w-24">
               <AvatarImage
                 src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
                 alt="profile"
               />
             </Avatar>
-            <div>
-              <h1 className="font-medium text-xl">{user?.fullName}</h1>
-              <p>{user?.profile?.bio}</p>
+            <div className="text-center sm:text-left">
+              <h1 className="font-medium text-lg sm:text-xl">{user?.fullName}</h1>
+              <p className="text-gray-600 text-sm sm:text-base">{user?.profile?.bio}</p>
             </div>
           </div>
           <Button
             onClick={() => setOpen(true)}
-            className="text-right"
+            className="self-center sm:self-auto"
             variant="outline"
           >
             <Pen />
           </Button>
         </div>
-        <div className="flex items-center justify-between my-5">
-          <div>
-            <Mail />
+        {/* Contact info */}
+        <div className="flex flex-col sm:flex-row items-center justify-between my-5 gap-2 sm:gap-0">
+          <div className="flex items-center gap-2 text-gray-700 text-sm">
+            <Mail className="w-4 h-4" />
             <span>{user?.email}</span>
           </div>
-          <div>
-            <Contact />
+          <div className="flex items-center gap-2 text-gray-700 text-sm">
+            <Contact className="w-4 h-4" />
             <span>{user?.phoneNumber}</span>
           </div>
         </div>
-        <div>
-          <h1>Skills</h1>
-          {skills?.length !== 0 ? (
-            skills?.map((item, index) => <Badge key={index}>{item}</Badge>)
-          ) : (
-            <span>NA</span>
-          )}
+        {/* Skills */}
+        <div className="my-4">
+          <h1 className="font-semibold text-base mb-2">Skills</h1>
+          <div className="flex flex-wrap gap-2">
+            {skills?.length !== 0 ? (
+              skills?.map((item, index) => <Badge key={index}>{item}</Badge>)
+            ) : (
+              <span>NA</span>
+            )}
+          </div>
         </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5">
+        {/* Resume */}
+        <div className="grid w-full max-w-sm items-center gap-1.5 my-4">
           <Label className="text-md font-bold">Resume</Label>
           {isResume ? (
             <a
-              target="blank"
+              target="_blank"
               href={user?.profile?.resume}
-              className="text-blue-500 w-full hover:underline cursor-pointer"
+              className="text-blue-500 w-full hover:underline cursor-pointer break-all"
             >
               {user?.profile?.resumeOriginalName}
             </a>
@@ -75,9 +81,9 @@ const Profile = () => {
             <span>NA</span>
           )}
         </div>
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-          <h1 className="font-bold text-lg my-5">Applied Jobs</h1>
-          {/* Applied Job Table   */}
+        {/* Applied Jobs Table */}
+        <div className="w-full bg-white rounded-2xl mt-8">
+          <h1 className="font-bold text-base sm:text-lg my-5">Applied Jobs</h1>
           <AppliedJobTable />
           <UpdateProfileDialog open={open} setOpen={setOpen} />
         </div>

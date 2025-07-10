@@ -40,32 +40,32 @@ const AdminJobsTable = () => {
   }, [allAdminJobs, searchJobByText]);
 
   return (
-    <div>
-      <Table>
-        <TableCaption>A list of your posted Jobs.</TableCaption>
+    <div className="overflow-x-auto font-sans">
+      <Table className="min-w-full font-sans">
+        <TableCaption className="text-[#4B2996] font-semibold mb-2 font-sans">A list of your posted Jobs.</TableCaption>
         <TableHeader>
-          <TableRow>
-            <TableHead>Company Name</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="text-right">Action</TableHead>
+          <TableRow className="bg-gradient-to-r from-[#ede9fe] to-[#f6f4fd]">
+            <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 pl-4 font-sans">Company Name</TableHead>
+            <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">Role</TableHead>
+            <TableHead className="text-[#4B2996] font-bold text-base tracking-wide py-4 font-sans">Date</TableHead>
+            <TableHead className="text-right text-[#4B2996] font-bold text-base tracking-wide py-4 pr-4 font-sans">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {filterJobs?.map((job) => (
-            <tr key={job?._id}>
-              <TableCell>{job?.company?.name}</TableCell>
-              <TableCell>{job?.title}</TableCell>
-              <TableCell>{job.createdAt.split("T")[0]}</TableCell>
-              <TableCell className="text-right cursor-pointer">
+            <tr key={job?._id} className="group border-b last:border-b-0 border-gray-100 hover:bg-[#f6f4fd] transition-colors text-[#2d1a4d] font-medium align-middle font-sans">
+              <TableCell className="py-3 pl-4 font-sans">{job?.company?.name}</TableCell>
+              <TableCell className="font-sans">{job?.title}</TableCell>
+              <TableCell className="font-sans">{job.createdAt.split("T")[0]}</TableCell>
+              <TableCell className="text-right pr-4 font-sans cursor-pointer">
                 <Popover>
                   <PopoverTrigger>
-                    <MoreHorizontal />
+                    <MoreHorizontal className="text-[#4B2996] group-hover:text-[#6A38C2] transition-colors" />
                   </PopoverTrigger>
-                  <PopoverContent className="w-32">
+                  <PopoverContent className="w-44 bg-white border border-gray-200 rounded-xl shadow-lg font-sans">
                     <div
                       onClick={() => navigate(`/admin/companies/${job._id}`)}
-                      className="flex items-center gap-2 w-fit cursor-pointer"
+                      className="flex items-center gap-2 w-fit cursor-pointer hover:text-[#6A38C2] text-base font-sans"
                     >
                       <Edit2 className="w-4" />
                       <span>Edit</span>
@@ -74,7 +74,7 @@ const AdminJobsTable = () => {
                       onClick={() =>
                         navigate(`/admin/jobs/${job._id}/applicants`)
                       }
-                      className="flex items-center w-fit gap-2 cursor-pointer mt-2"
+                      className="flex items-center w-fit gap-2 cursor-pointer mt-2 hover:text-[#4B2996] text-base font-sans"
                     >
                       <Eye className="w-4" />
                       <span>Applicants</span>

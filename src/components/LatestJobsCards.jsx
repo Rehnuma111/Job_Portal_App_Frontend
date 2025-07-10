@@ -11,7 +11,7 @@ const LatestJobsCards = ({ job }) => {
   return (
     <div
       onClick={() => navigate(`/description/${job._id}`)}
-      className="p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer"
+      className="p-4 sm:p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer transition-transform hover:scale-[1.02] min-h-[220px] flex flex-col justify-between"
     >
       <motion.div
         initial={{ opacity: 0, x: 100 }}
@@ -19,31 +19,28 @@ const LatestJobsCards = ({ job }) => {
         exit={{ opacity: 0, x: -100 }}
         transition={{ duration: 0.3 }}
       >
-        {/* <h1 className="text-2xl font-bold">Company Name</h1> */}
-        <p className="text-xl text-gray-500">India</p>
+        <p className="text-base sm:text-lg text-gray-500">India</p>
         <div>
-          <h1 className="font-medium text-sm">{job?.company?.name}</h1>
+          <h1 className="font-medium text-xs sm:text-sm">{job?.company?.name}</h1>
         </div>
-        <div>
-          <h1 className="font-bold text-lg my-2">{job?.title}</h1>
-          <Button variant="outline">
-            <Avatar>
+        <div className="flex items-center gap-2 my-2">
+          <Button variant="outline" className="p-1">
+            <Avatar className="w-7 h-7">
               <AvatarImage src={job?.company?.logo} />
             </Avatar>
           </Button>
-          <p className="text-sm text-gray-600">{job?.description}</p>
+          <h1 className="font-bold text-base sm:text-lg">{job?.title}</h1>
         </div>
-        <div className="flex items-center gap-2 mt-4">
-          <Badge className={"text-blue-700 font-bold"} variant="ghost">
-            {job?.position}
-            Positions
+        <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{job?.description}</p>
+        <div className="flex flex-wrap items-center gap-2 mt-4">
+          <Badge className={"text-blue-700 font-bold text-xs sm:text-sm"} variant="ghost">
+            {job?.position} Positions
           </Badge>
-          <Badge className={"text-[#F83002] font-bold"} variant="ghost">
+          <Badge className={"text-[#F83002] font-bold text-xs sm:text-sm"} variant="ghost">
             {job?.jobType}
           </Badge>
-          <Badge className={"text-[#7209b7] font-bold"} variant="ghost">
-            {job?.salary}
-            LPA
+          <Badge className={"text-[#7209b7] font-bold text-xs sm:text-sm"} variant="ghost">
+            {job?.salary} LPA
           </Badge>
         </div>
       </motion.div>
