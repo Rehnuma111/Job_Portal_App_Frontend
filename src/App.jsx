@@ -13,6 +13,8 @@ import CompaniesSetup from "./components/admin/CompaniesSetup";
 import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
+import ForgotPassword from "./components/ui/ForgotPassword";
+import ResetPassword from "./components/ui/ResetPassword";
 // import { useSelector } from 'react-redux';
 // import Loader from './components/ui/Loader';
 
@@ -49,6 +51,14 @@ const appRouter = createBrowserRouter([
   {
     path: "/admin/jobs/:id/applicants",
     element: <Applicants />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/reset-password/:token",
+    element: <ResetPassword />,
   },
 ]);
 

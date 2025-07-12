@@ -236,6 +236,12 @@ const Signup = () => {
                   Login
                 </Link>
               </span>
+              <span className="text-sm block text-center mt-2">
+                Forgot your password?{' '}
+                <Link to="/forgot-password" className="text-[#6A38C2] font-semibold hover:underline">
+                 Reset it here
+                </Link>
+              </span>
             </form>
           </div>
         </div>
