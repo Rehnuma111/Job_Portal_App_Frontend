@@ -52,8 +52,8 @@ const Signup = () => {
       email: "",
       phoneNumber: "",
       password: "",
-      role: "student", // Default role
-      file: null, // File input
+      role: "student", 
+      file: null, 
     },
     validationSchema: signUpSchema,
     onSubmit: async (values) => {
@@ -74,7 +74,7 @@ const Signup = () => {
           `${USER_API_ENDPOINT}/register`,
           formData,
           {
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "multipart/form-data" },
             withCredentials: true,
           }
         );

@@ -1,3 +1,4 @@
+import { setLoading } from "@/redux/authSlice";
 import { setAllJobs } from "@/redux/jobSlice";
 import { JOB_API_ENDPOINT } from "@/utils/constant";
 import axios from "axios";
