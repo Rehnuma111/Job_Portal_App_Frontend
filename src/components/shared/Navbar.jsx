@@ -120,6 +120,14 @@ const Navbar = () => {
                     Browse
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/saved-jobs"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Saved Jobs
+                  </Link>
+                </li>
               </>
             )}
 
@@ -234,6 +242,17 @@ const Navbar = () => {
                       Browse
                     </Link>
                   </li>
+                  {user && user?.role === "student" && (
+                    <li>
+                      <Link
+                        to="/saved-jobs"
+                        className="block py-2 hover:text-blue-600 transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        Saved Jobs
+                      </Link>
+                    </li>
+                  )}
                 </>
               )}
 

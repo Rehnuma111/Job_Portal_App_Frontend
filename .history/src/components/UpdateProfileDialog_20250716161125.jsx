@@ -66,7 +66,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("bio", input.bio);
     formData.append("role", input.role);
-    
+    input.skills.forEach((skill, index) => {
+      formData.append(`skills[${index}]`, skill);
+    });
+    // OR stringify
     formData.append("skills", input.skills);
     if (input.file) {
       formData.append("file", input.file);

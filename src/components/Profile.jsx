@@ -6,7 +6,10 @@ import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { USER_SAVED_JOBS_API_ENDPOINT } from "@/utils/constant";
+import { setSavedJobs } from "@/redux/authSlice";
 import Navbar from "./shared/Navbar";
 import useGetAppliedJobs from "@/hooks/useGetAllAppliedJobs";
 
@@ -14,10 +17,25 @@ const isResume = true;
 
 const Profile = () => {
   useGetAppliedJobs();
-
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const { user } = useSelector((store) => store.auth);
+  const { user, savedJobs } = useSelector((store) => store.auth);
   const skills = user?.profile?.skills;
+
+  React.useEffect(() => {
+    const fetchSavedJobs = async () => {
+      try {
+        const res = await axios.get(USER_SAVED_JOBS_API_ENDPOINT, { withCredentials: true });
+        if (res.data.success) {
+          dispatch(setSavedJobs(res.data.savedJobs));
+        }
+      } catch (error) {
+        // Optionally handle error
+      }
+    };
+    fetchSavedJobs();
+  }, [dispatch]);
+
   return (
     <>
       <Navbar />
@@ -86,6 +104,24 @@ const Profile = () => {
           <h1 className="font-bold text-base sm:text-lg my-5">Applied Jobs</h1>
           <AppliedJobTable />
           <UpdateProfileDialog open={open} setOpen={setOpen} />
+        </div>
+        {/* Saved Jobs Table */}
+        <div className="w-full bg-white rounded-2xl mt-8">
+          <h1 className="font-bold text-base sm:text-lg my-5">Saved Jobs</h1>
+          {savedJobs?.length === 0 ? (
+            <p className="text-gray-500">No saved jobs yet.</p>
+          ) : (
+            <ul className="divide-y divide-gray-200">
+              {savedJobs.map((job) => (
+                <li key={job._id} className="py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <span className="font-medium">{job.title}</span> at <span className="text-gray-600">{job.company?.name}</span>
+                  </div>
+                  <div className="text-xs text-gray-500">{job.location} | {job.jobType}</div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </>

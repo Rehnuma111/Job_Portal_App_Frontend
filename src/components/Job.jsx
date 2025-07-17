@@ -4,9 +4,46 @@ import { Badge } from "./ui/badge";
 import { Bookmark } from "lucide-react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { USER_API_ENDPOINT } from "@/utils/constant";
+import { addSavedJob, removeSavedJob } from "@/redux/authSlice";
+import { toast } from "sonner";
 
 const Job = ({ job }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { savedJobs, user } = useSelector((state) => state.auth);
+  const userId = user?._id;
+  console.log("savedJObs" , savedJobs ,userId);
+  
+  const isSaved = savedJobs?.some((savedJob) => savedJob._id === job._id);
+
+  const handleSaveJob = async () => {
+    try {
+      const res = await axios.post(`${USER_API_ENDPOINT}/save-job/${job._id}`, {}, { withCredentials: true });
+      console.log("res" , res);
+      if (res.data.success) {
+        dispatch(addSavedJob(job));
+        toast.success("Job saved for later");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to save job");
+    }
+  };
+
+  const handleUnsaveJob = async () => {
+    try {
+      const res = await axios.delete(`${USER_API_ENDPOINT}/save-job/${job._id}`, { withCredentials: true });
+      if (res.data.success) {
+        dispatch(removeSavedJob(job._id));
+        toast.success("Job removed from saved");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to unsave job");
+    }
+  };
+
   // console.log("job", job);
 
   const daysAgoFunction = (mongoTime) => {
@@ -24,8 +61,8 @@ const Job = ({ job }) => {
           <p className="text-xs sm:text-sm text-gray-500">
             {job?.createdAt === 0 ? "Today" : ` ${daysAgoFunction(job?.createdAt)}`} Days Ago
           </p>
-          <Button variant="outline" className="rounded-full" size="icon">
-            <Bookmark />
+          <Button variant="outline" className="rounded-full" size="icon" onClick={isSaved ? handleUnsaveJob : handleSaveJob}>
+            <Bookmark fill={isSaved ? "#7209b7" : "none"} />
           </Button>
         </div>
 
@@ -64,7 +101,13 @@ const Job = ({ job }) => {
           >
             Details
           </Button>
-          <Button className="bg-[#7209b7] w-full sm:w-auto">Save For Later</Button>
+          <Button
+            className="bg-[#7209b7] w-full sm:w-auto"
+            onClick={isSaved ? handleUnsaveJob : handleSaveJob}
+            variant={isSaved ? "outline" : "default"}
+          >
+            {isSaved ? "Unsave" : "Save For Later"}
+          </Button>
         </div>
       </div>
     </div>

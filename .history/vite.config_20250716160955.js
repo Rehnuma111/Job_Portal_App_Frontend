@@ -19,7 +19,7 @@ export default defineConfig({
    server: {
     proxy: {
       "/api": {
-        target: "https://job-portal-app-backend-1-ghf0.onrender.com",
+        target: "https://job-portal-app-backend-1-ghf0.onrender.com/",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, "/api"),

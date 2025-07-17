@@ -30,4 +30,4 @@ const useGetallJobs = () => {
     }, [searchQuery, dispatch]);
 };
 
-export default useGetallJobs
+export default useGetallJobs;

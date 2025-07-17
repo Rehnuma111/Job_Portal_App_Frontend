@@ -15,6 +15,7 @@ import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
 import ForgotPassword from "./components/ui/ForgotPassword";
 import ResetPassword from "./components/ui/ResetPassword";
+import SavedJobs from "./components/SavedJobs";
 // import { useSelector } from 'react-redux';
 // import Loader from './components/ui/Loader';
 
@@ -26,6 +27,7 @@ const appRouter = createBrowserRouter([
   { path: "/description/:id", element: <JobDescription /> },
   { path: "/browse", element: <Browse /> },
   { path: "/profile", element: <Profile /> },
+  { path: "/saved-jobs", element: <SavedJobs /> },
   { path: "*", element: <NotFound /> },
   //admin ke lie
   {
