@@ -23,7 +23,7 @@ const Companies = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#f8fafc] to-[#e3e0ff] flex flex-col">
       <Navbar />
       <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col p-2 md:p-8">
-        {/* Header */}
+       
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 mt-4">
           <h1 className="text-3xl md:text-4xl font-extrabold text-[#4B2996] drop-shadow-lg tracking-tight">
             Admin: Manage Companies
@@ -44,7 +44,7 @@ const Companies = () => {
             </Button>
           </div>
         </div>
-        {/* Table Card */}
+        
         <div className="bg-white p-2 md:p-8 border border-gray-100 overflow-x-auto transition-all duration-300">
           <CompaniesTable />
         </div>

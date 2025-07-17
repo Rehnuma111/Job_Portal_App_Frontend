@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { setAuthUser } from "@/redux/authSlice";
+import { logout, setAuthUser } from "@/redux/authSlice";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import axios from "axios";
 import { LogOut, LogOutIcon, User2 } from "lucide-react";
@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 const Navbar = () => {
   // const user = true;
-  const { user } = useSelector((store) => store.auth);
+  const { user, isAuthenticated } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,6 +30,7 @@ const Navbar = () => {
         navigate("/login");
         toast.success(response.data.message);
       }
+      dispatch(logout());
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Logout failed");
@@ -37,6 +38,7 @@ const Navbar = () => {
   };
 
   const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
@@ -179,9 +181,11 @@ const Navbar = () => {
 
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <LogOutIcon />
-                    <Button onClick={handleLogout} variant="link">
-                      Logout
-                    </Button>
+                    {isAuthenticated ? (
+                      <Button onClick={handleLogout}>Logout</Button>
+                    ) : (
+                      <Link to="/login">Logout</Link>
+                    )}
                   </div>
                 </PopoverContent>
               </Popover>

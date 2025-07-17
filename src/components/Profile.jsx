@@ -8,7 +8,6 @@ import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { USER_SAVED_JOBS_API_ENDPOINT } from "@/utils/constant";
 import { setSavedJobs } from "@/redux/authSlice";
 import Navbar from "./shared/Navbar";
 import useGetAppliedJobs from "@/hooks/useGetAllAppliedJobs";

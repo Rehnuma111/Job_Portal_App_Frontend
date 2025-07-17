@@ -15,7 +15,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const Login = () => {
-
   const { loading, user } = useSelector((store) => store.auth);
 
   const navigate = useNavigate();
@@ -53,8 +52,9 @@ const Login = () => {
       } catch (error) {
         console.log(error);
         toast.error(
-          error.response?.data?.message || "Something went wrong, please try again."
-        )
+          error.response?.data?.message ||
+            "Something went wrong, please try again."
+        );
       } finally {
         dispatch(setLoading(false));
       }
@@ -73,19 +73,29 @@ const Login = () => {
           <div className="hidden md:flex flex-col justify-center items-center flex-1 bg-gradient-to-br from-[#6A38C2] to-[#F83002] p-10 relative">
             <div className="absolute inset-0 bg-gradient-to-br from-[#6A38C2]/80 to-[#F83002]/80 opacity-80 z-0" />
             <div className="relative z-10 text-white text-center">
-              <h2 className="text-4xl font-extrabold mb-4 drop-shadow-lg">Welcome Back!</h2>
-              <p className="text-lg mb-8 font-medium">Login to explore the best jobs and opportunities for your career growth.</p>
-              <img src="/src/assets/8041916.jpg" alt="Job Portal" className="w-80 mx-auto rounded-2xl shadow-xl border-4 border-white/30" />
+              <h2 className="text-4xl font-extrabold mb-4 drop-shadow-lg">
+                Welcome Back!
+              </h2>
+              <p className="text-lg mb-8 font-medium">
+                Login to explore the best jobs and opportunities for your career
+                growth.
+              </p>
+              <img
+                src="/src/assets/8041916.jpg"
+                alt="Job Portal"
+                className="w-80 mx-auto rounded-2xl shadow-xl border-4 border-white/30"
+              />
             </div>
           </div>
           {/* Right: Login Form */}
           <div className="flex-1 flex items-center justify-center p-6 sm:p-10 bg-white/90">
-            <form
-              onSubmit={handleSubmit}
-              className="w-full max-w-md mx-auto"
-            >
-              <h1 className="font-extrabold text-3xl mb-2 text-[#6A38C2] text-center">Sign In</h1>
-              <p className="mb-8 text-gray-500 text-center text-base">Access your account and start your job search journey.</p>
+            <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
+              <h1 className="font-extrabold text-3xl mb-2 text-[#6A38C2] text-center">
+                Sign In
+              </h1>
+              <p className="mb-8 text-gray-500 text-center text-base">
+                Access your account and start your job search journey.
+              </p>
 
               <div className="my-4">
                 <Label className="my-3">Email</Label>
@@ -98,7 +108,9 @@ const Login = () => {
                   className="rounded-xl"
                 />
                 {touched.email && errors.email && (
-                  <div className="text-red-500 text-xs mt-1">{errors.email}</div>
+                  <div className="text-red-500 text-xs mt-1">
+                    {errors.email}
+                  </div>
                 )}
               </div>
 
@@ -113,7 +125,9 @@ const Login = () => {
                   className="rounded-xl"
                 />
                 {touched.password && errors.password && (
-                  <div className="text-red-500 text-xs mt-1">{errors.password}</div>
+                  <div className="text-red-500 text-xs mt-1">
+                    {errors.password}
+                  </div>
                 )}
               </div>
               <div className="flex items-center justify-between">
@@ -144,11 +158,17 @@ const Login = () => {
               </div>
 
               {loading ? (
-                <Button className="w-full my-4 bg-[#6A38C2] text-white rounded-xl" disabled>
+                <Button
+                  className="w-full my-4 bg-[#6A38C2] text-white rounded-xl"
+                  disabled
+                >
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
                 </Button>
               ) : (
-                <Button type="submit" className="w-full my-4 bg-[#6A38C2] text-white hover:bg-[#5f32ad] rounded-xl shadow-md shadow-[#6A38C2]/20">
+                <Button
+                  type="submit"
+                  className="w-full my-4 bg-[#6A38C2] text-white hover:bg-[#5f32ad] rounded-xl shadow-md shadow-[#6A38C2]/20"
+                >
                   Login
                 </Button>
               )}
@@ -159,8 +179,11 @@ const Login = () => {
               </div>
               {/* <GoogleLogin ... /> */}
               <span className="text-sm block text-center mt-2">
-                Don't have an account?{' '}
-                <Link to="/signup" className="text-[#F83002] font-semibold hover:underline">
+                Don't have an account?{" "}
+                <Link
+                  to="/signup"
+                  className="text-[#F83002] font-semibold hover:underline"
+                >
                   Sign Up
                 </Link>
               </span>

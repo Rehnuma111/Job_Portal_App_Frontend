@@ -6,6 +6,8 @@ const authSlice = createSlice({
     loading: false,
     user:null,
     savedJobs: [],
+      isAuthenticated: false,
+
   },
   reducers: {
     // actions
@@ -24,8 +26,12 @@ const authSlice = createSlice({
     removeSavedJob: (state, action) => {
       state.savedJobs = state.savedJobs.filter(job => job._id !== action.payload);
     },
+    logout: (state) => {
+    state.user = null;
+    state.isAuthenticated = false;
+  },
   },
 });
 
-export const { setLoading, setAuthUser, setSavedJobs, addSavedJob, removeSavedJob } = authSlice.actions;
+export const { setLoading, setAuthUser, setSavedJobs,logout ,  addSavedJob, removeSavedJob } = authSlice.actions;
 export default authSlice.reducer;
