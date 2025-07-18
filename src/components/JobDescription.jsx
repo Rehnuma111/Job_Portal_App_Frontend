@@ -80,18 +80,18 @@ const JobDescription = () => {
   }, [jobId, dispatch, user?._id]);
 
   return (
-    <section className="max-w-7xl mx-auto my-8 px-2 sm:px-4">
+    <section className="max-w-7xl mx-auto my-8 px-2 sm:px-4 bg-card text-theme rounded-xl shadow-md">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="font-bold text-lg sm:text-xl">{singleJob?.title}</h1>
+          <h1 className="font-bold text-lg sm:text-xl text-heading-primary">{singleJob?.title}</h1>
           <div className="flex flex-wrap items-center gap-2 mt-2">
-            <Badge className={"text-blue-700 font-bold text-xs sm:text-sm"} variant="ghost">
+            <Badge className={"text-heading-primary font-bold text-xs sm:text-sm"} variant="ghost">
               {singleJob?.position} Positions
             </Badge>
-            <Badge className={"text-[#F83002] font-bold text-xs sm:text-sm"} variant="ghost">
+            <Badge className={"text-heading-secondary font-bold text-xs sm:text-sm"} variant="ghost">
               {singleJob?.jobType}
             </Badge>
-            <Badge className={"text-[#7209b7] font-bold text-xs sm:text-sm"} variant="ghost">
+            <Badge className={"text-theme font-bold text-xs sm:text-sm"} variant="ghost">
               {singleJob?.location}
             </Badge>
           </div>
@@ -99,56 +99,52 @@ const JobDescription = () => {
         <Button
           onClick={isApplied ? null : applyJobHandler}
           disabled={isApplied}
-          className={`rounded-lg w-full md:w-auto ${
-            isApplied
-              ? "bg-gray-600 cursor-not-allowed"
-              : "bg-[#7209b7] hover:bg-[#5f32ad]"
-          }`}
+          className={`rounded-lg w-full md:w-auto btn-theme ${isApplied ? "opacity-60 cursor-not-allowed" : ""}`}
         >
           {isApplied ? "Already Applied" : "Apply Now"}
         </Button>
       </div>
-      <h1 className="border-b-2 border-b-gray-300 font-medium py-4 mt-4 text-base sm:text-lg">
+      <h1 className="border-b-2 border-b-gray-300 font-medium py-4 mt-4 text-base sm:text-lg text-heading-primary">
         Job Description
       </h1>
       <div className="my-4 space-y-2">
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Role:
-          <span className="pl-2 font-normal text-gray-800">
+          <span className="pl-2 font-normal text-theme">
             {singleJob?.title}
           </span>
         </h1>
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Location:
-          <span className="pl-2 font-normal text-gray-800">{singleJob?.location}</span>
+          <span className="pl-2 font-normal text-theme">{singleJob?.location}</span>
         </h1>
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Description:
-          <span className="pl-2 font-normal text-gray-800">
+          <span className="pl-2 font-normal text-theme">
             {singleJob?.description}
           </span>
         </h1>
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Experience:
-          <span className="pl-2 font-normal text-gray-800">
+          <span className="pl-2 font-normal text-theme">
             {singleJob?.experienceLevel} yrs
           </span>
         </h1>
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Salary:
-          <span className="pl-2 font-normal text-gray-800">
+          <span className="pl-2 font-normal text-theme">
             {singleJob?.salary} LPA
           </span>
         </h1>
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Total Applicants:
-          <span className="pl-2 font-normal text-gray-800">
+          <span className="pl-2 font-normal text-theme">
             {singleJob?.applications?.length}
           </span>
         </h1>
         <h1 className="font-bold my-1 text-sm sm:text-base">
           Posted Date:
-          <span className="pl-2 font-normal text-gray-800">
+          <span className="pl-2 font-normal text-theme">
             {singleJob?.createdAt?.split("T")[0]}
           </span>
         </h1>

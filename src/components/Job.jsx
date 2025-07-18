@@ -56,40 +56,40 @@ const Job = ({ job }) => {
   // const jobId = "ugtftvb";
   return (
     <div className="w-full">
-      <div className="p-4 sm:p-5 rounded-md shadow-xl bg-white border border-gray-100 flex flex-col gap-2 min-h-[260px]">
+      <div className="p-4 sm:p-5 rounded-xl shadow-xl bg-card border border-gray-200 flex flex-col gap-2 min-h-[260px] transition-colors">
         <div className="flex items-center justify-between">
-          <p className="text-xs sm:text-sm text-gray-500">
+          <p className="text-xs sm:text-sm text-theme">
             {job?.createdAt === 0 ? "Today" : ` ${daysAgoFunction(job?.createdAt)}`} Days Ago
           </p>
           <Button variant="outline" className="rounded-full" size="icon" onClick={isSaved ? handleUnsaveJob : handleSaveJob}>
-            <Bookmark fill={isSaved ? "#7209b7" : "none"} />
+            <Bookmark fill={isSaved ? "var(--heading-primary)" : "none"} />
           </Button>
         </div>
 
         <div className="flex items-center gap-2 my-2">
-          <Button className="p-2 sm:p-4" variant="outline" size="icon">
+          <Button className="p-2 sm:p-4 bg-card" variant="outline" size="icon">
             <Avatar className="w-8 h-8 sm:w-10 sm:h-10">
               <AvatarImage src={job?.company?.logo} />
             </Avatar>
           </Button>
           <div>
-            <h1 className="font-medium text-base sm:text-lg">{job?.company?.name}</h1>
-            <p className="text-xs sm:text-sm text-gray-500">India</p>
+            <h1 className="font-medium text-base sm:text-lg text-heading-primary">{job?.company?.name}</h1>
+            <p className="text-xs sm:text-sm text-theme">India</p>
           </div>
         </div>
 
         <div>
-          <h1 className="font-bold text-base sm:text-lg my-2 line-clamp-1">{job?.title}</h1>
-          <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{job?.description}</p>
+          <h1 className="font-bold text-base sm:text-lg my-2 line-clamp-1 text-heading-primary">{job?.title}</h1>
+          <p className="text-xs sm:text-sm text-theme line-clamp-2">{job?.description}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 mt-2">
-          <Badge className={"text-blue-700 font-bold text-xs sm:text-sm"} variant="ghost">
+          <Badge className={"text-heading-primary font-bold text-xs sm:text-sm"} variant="ghost">
             {job?.position} Positions
           </Badge>
-          <Badge className={"text-[#F83002] font-bold text-xs sm:text-sm"} variant="ghost">
+          <Badge className={"text-heading-secondary font-bold text-xs sm:text-sm"} variant="ghost">
             {job?.jobType}
           </Badge>
-          <Badge className={"text-[#7209b7] font-bold text-xs sm:text-sm"} variant="ghost">
+          <Badge className={"text-theme font-bold text-xs sm:text-sm"} variant="ghost">
             {job?.salary} LPA
           </Badge>
         </div>
@@ -97,12 +97,12 @@ const Job = ({ job }) => {
           <Button
             onClick={() => navigate(`/description/${job._id}`)}
             variant="outline"
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto btn-theme"
           >
             Details
           </Button>
           <Button
-            className="bg-[#7209b7] w-full sm:w-auto"
+            className={`w-full sm:w-auto btn-theme ${isSaved ? "opacity-70" : ""}`}
             onClick={isSaved ? handleUnsaveJob : handleSaveJob}
             variant={isSaved ? "outline" : "default"}
           >

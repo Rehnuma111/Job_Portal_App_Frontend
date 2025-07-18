@@ -1,42 +1,75 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body.light {
+  --bg-color: #f8fafc;
+  --bg-gradient-to: #e3e0ff;
+  --heading-primary: #4B2996;
+  --heading-secondary: #F83002;
+  --hero-accent: #6A38C2;
+  --hero-tag-bg: #f3f4f6;
+  --hero-tag-text: #F83002;
+  --input-bg: #fff;
+  --button-bg: #6A38C2;
+  --button-text: #fff;
+  --category-btn-bg: #fff;
+  --category-btn-hover: #f6f4fd;
+  --category-btn-text: #4B2996;
+  --card-bg: #fff;
+  --text-color: #222;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body.dark {
+  --bg-color: #474545;
+  --bg-gradient-to: #232946;
+  --heading-primary: #b39ddb;
+  --heading-secondary: #ff8a65;
+  --hero-accent: #b39ddb;
+  --hero-tag-bg: #232946;
+  --hero-tag-text: #ff8a65;
+  --input-bg: #232946;
+  --button-bg: #b39ddb;
+  --button-text: #181818;
+  --category-btn-bg: #232946;
+  --category-btn-hover: #2d3250;
+  --category-btn-text: #b39ddb;
+  --card-bg: #636469;
+  --text-color: #f5f5f5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
 }
 
-.card {
-  padding: 2em;
+.App, .main-content, nav, header, footer {
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
-.read-the-docs {
-  color: #888;
+/* Example usage in components */
+button {
+  background: var(--primary);
+  color: var(--text-color);
+}
+
+.bg-theme {
+  background: var(--bg-color) !important;
+}
+.bg-card {
+  background: var(--card-bg) !important;
+}
+.text-theme {
+  color: var(--text-color) !important;
+}
+.text-heading-primary {
+  color: var(--heading-primary) !important;
+}
+.text-heading-secondary {
+  color: var(--heading-secondary) !important;
+}
+.bg-gradient-theme {
+  background: linear-gradient(135deg, var(--bg-color), var(--bg-gradient-to)) !important;
+}
+.btn-theme {
+  background: var(--button-bg) !important;
+  color: var(--button-text) !important;
 }

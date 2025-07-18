@@ -14,7 +14,6 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
-import { GoogleLogin } from "@react-oauth/google";
 import { setLoading } from "@/redux/authSlice";
 
 const Signup = () => {
@@ -96,27 +95,27 @@ const Signup = () => {
   console.log(errors);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#f8fafc] to-[#e0e7ff]">
+    <div className="min-h-screen flex flex-col bg-gradient-theme">
       <Navbar />
       <div className="flex flex-1 items-center justify-center py-8 px-2">
-        <div className="w-full max-w-5xl flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden bg-white/80 backdrop-blur-lg border border-gray-200">
+        <div className="w-full max-w-5xl flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden bg-card backdrop-blur-lg border border-gray-200">
           {/* Left: Illustration & Welcome */}
-          <div className="hidden md:flex flex-col justify-center items-center flex-1 bg-gradient-to-br from-[#F83002] to-[#6A38C2] p-10 relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#F83002]/80 to-[#6A38C2]/80 opacity-80 z-0" />
-            <div className="relative z-10 text-white text-center">
-              <h2 className="text-4xl font-extrabold mb-4 drop-shadow-lg">Join the Future of Work</h2>
-              <p className="text-lg mb-8 font-medium">Sign up and unlock the best job opportunities tailored for you.</p>
+          <div className="hidden md:flex flex-col justify-center items-center flex-1 bg-gradient-theme p-10 relative">
+            <div className="absolute inset-0 bg-gradient-theme opacity-80 z-0" />
+            <div className="relative z-10 text-theme text-center">
+              <h2 className="text-4xl font-extrabold mb-4 drop-shadow-lg text-heading-primary">Join the Future of Work</h2>
+              <p className="text-lg mb-8 font-medium text-theme">Sign up and unlock the best job opportunities tailored for you.</p>
               <img src="/src/assets/8041916.jpg" alt="Job Portal" className="w-80 mx-auto rounded-2xl shadow-xl border-4 border-white/30" />
             </div>
           </div>
           {/* Right: Signup Form */}
-          <div className="flex-1 flex items-center justify-center p-6 sm:p-10 bg-white/90">
+          <div className="flex-1 flex items-center justify-center p-6 sm:p-10 bg-card">
             <form
               onSubmit={handleSubmit}
               className="w-full max-w-md mx-auto"
             >
-              <h1 className="font-extrabold text-3xl mb-2 text-[#F83002] text-center">Create Account</h1>
-              <p className="mb-8 text-gray-500 text-center text-base">Start your dream career today. It's free!</p>
+              <h1 className="font-extrabold text-3xl mb-2 text-heading-secondary text-center">Create Account</h1>
+              <p className="mb-8 text-theme text-center text-base">Start your dream career today. It's free!</p>
               <div className="my-4">
                 <Label className="my-3">Full Name</Label>
                 <Input
@@ -216,29 +215,29 @@ const Signup = () => {
                 </div>
               </div>
               {loading ? (
-                <Button className="w-full my-4 bg-[#F83002] text-white rounded-xl" disabled>
+                <Button className="w-full my-4 btn-theme rounded-xl" disabled>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
                 </Button>
               ) : (
-                <Button type="submit" className="w-full my-4 bg-[#F83002] text-white hover:bg-[#c72a00] rounded-xl shadow-md shadow-[#F83002]/20">
+                <Button type="submit" className="w-full my-4 btn-theme rounded-xl shadow-md">
                   Sign Up
                 </Button>
               )}
               <div className="flex items-center my-2">
                 <div className="flex-grow h-px bg-gray-300" />
-                <span className="mx-2 text-gray-500 text-sm">or</span>
+                <span className="mx-2 text-theme text-sm">or</span>
                 <div className="flex-grow h-px bg-gray-300" />
               </div>
               {/* <GoogleLogin ... /> */}
               <span className="text-sm block text-center mt-2">
                 Already have an account?{' '}
-                <Link to="/login" className="text-[#6A38C2] font-semibold hover:underline">
+                <Link to="/login" className="text-heading-primary font-semibold hover:underline">
                   Login
                 </Link>
               </span>
               <span className="text-sm block text-center mt-2">
                 Forgot your password?{' '}
-                <Link to="/forgot-password" className="text-[#6A38C2] font-semibold hover:underline">
+                <Link to="/forgot-password" className="text-heading-primary font-semibold hover:underline">
                  Reset it here
                 </Link>
               </span>

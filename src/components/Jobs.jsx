@@ -59,7 +59,7 @@ const Jobs = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-theme">
       <Navbar />
       <div className="max-w-7xl mx-auto mt-5 px-2 sm:px-4">
         <JobSearchBar
@@ -81,7 +81,7 @@ const Jobs = () => {
           {/* Job grid - responsive */}
           <div className="flex-1 h-[60vh] md:h-[75vh] lg:h-[88vh] overflow-y-auto pb-5">
             {filterJobs.length === 0 ? (
-              <div className="text-center mt-10 text-gray-500 text-lg">
+              <div className="text-center mt-10 text-theme text-lg">
                 ❌ No jobs found. Try changing your filters.
               </div>
             ) : (

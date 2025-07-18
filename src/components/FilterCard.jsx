@@ -69,9 +69,9 @@ import { motion } from "framer-motion";
 const FilterCard = ({ filterData, setFilters, filters }) => {
   return (
     <div>
-      <div className="w-full bg-white p-3 rounded-md">
-        <h1 className="font-bold text-lg">Filter Jobs</h1>
-        <hr className="mt-3" />
+      <div className="w-full bg-card p-3 rounded-md shadow text-theme">
+        <h1 className="font-bold text-lg text-heading-primary">Filter Jobs</h1>
+        <hr className="mt-3 border-gray-300" />
 
         <motion.div
           initial={{ opacity: 0, x: 100 }}
@@ -81,12 +81,12 @@ const FilterCard = ({ filterData, setFilters, filters }) => {
         >
           {filterData.map((filter, index) => (
             <div key={index} className="my-4">
-              <Label className="font-semibold text-gray-700 block mb-2">
+              <Label className="font-semibold text-theme block mb-2">
                 {filter.label}
               </Label>
 
               <select
-                className="w-full border border-gray-300 p-2 rounded-md"
+                className="w-full border border-gray-300 p-2 rounded-md bg-card text-theme"
                 value={filters?.[filter.filterType] || ""}
                 onChange={(e) => {
                   let value = e.target.value;
@@ -104,7 +104,7 @@ const FilterCard = ({ filterData, setFilters, filters }) => {
               >
                 <option value="">Select {filter.label}</option>
                 {filter.array.map((option, idx) => (
-                  <option key={idx} value={option}>
+                  <option key={idx} value={option} className="text-theme bg-card">
                     {typeof option === "number"
                       ? `₹ ${option.toLocaleString()}`
                       : option}

@@ -19,18 +19,34 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#f8fafc] to-[#e3e0ff] font-sans">
+    <div
+      className="min-h-screen flex flex-col font-sans"
+      style={{
+        background: "linear-gradient(135deg, var(--bg-color), var(--bg-gradient-to))",
+        color: "var(--text-color)"
+      }}
+    >
       <Navbar />
       <main className="flex-1 w-full max-w-7xl mx-auto px-2 sm:px-6 md:px-10">
         <section className="mb-8 mt-4">
           <HeroSection />
         </section>
         <section className="mb-10">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#4B2996] text-center mb-4 drop-shadow-lg tracking-tight">Browse by Category</h2>
+          <h2
+            className="text-2xl sm:text-3xl font-extrabold text-center mb-4 drop-shadow-lg tracking-tight"
+            style={{ color: "var(--heading-primary)" }}
+          >
+            Browse by Category
+          </h2>
           <CategoryCarousel />
         </section>
         <section className="mb-12">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F83002] text-center mb-4 drop-shadow-lg tracking-tight">Latest Jobs</h2>
+          <h2
+            className="text-2xl sm:text-3xl font-extrabold text-center mb-4 drop-shadow-lg tracking-tight"
+            style={{ color: "var(--heading-secondary)" }}
+          >
+            Latest Jobs
+          </h2>
           <LatestJobs />
         </section>
       </main>

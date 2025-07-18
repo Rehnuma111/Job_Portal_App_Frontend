@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
   USER_API_ENDPOINT,
-  USER_SAVED_JOBS_API_ENDPOINT,
 } from "@/utils/constant";
 import { setSavedJobs } from "@/redux/authSlice";
 import Navbar from "./shared/Navbar";
@@ -42,14 +41,14 @@ const SavedJobs = () => {
   
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-theme">
       <Navbar />
-      <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-4 sm:p-8">
-        <h1 className="font-bold text-2xl mb-6">Saved Jobs</h1>
+      <div className="max-w-4xl mx-auto bg-card border border-gray-200 rounded-2xl my-5 p-4 sm:p-8 text-theme">
+        <h1 className="font-bold text-2xl mb-6 text-heading-primary">Saved Jobs</h1>
         {loading ? (
-          <p className="text-gray-500">Loading...</p>
+          <p className="text-theme">Loading...</p>
         ) : savedJobs?.length === 0 ? (
-          <p className="text-gray-500">No saved jobs yet.</p>
+          <p className="text-theme">No saved jobs yet.</p>
         ) : (
           <ul className="divide-y divide-gray-200">
             {savedJobs.map((job) => (
@@ -58,10 +57,10 @@ const SavedJobs = () => {
                 className="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
-                  <span className="font-medium text-lg">{job.title}</span> at{" "}
-                  <span className="text-gray-600">{job.company?.name}</span>
+                  <span className="font-medium text-lg text-heading-primary">{job.title}</span> at{" "}
+                  <span className="text-heading-secondary">{job.company?.name}</span>
                 </div>
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-theme">
                   {job.location} | {job.jobType}
                 </div>
               </li>

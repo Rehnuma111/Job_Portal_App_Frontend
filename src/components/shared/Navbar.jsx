@@ -5,6 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useTheme } from "@/context/ThemeContext";
 import { logout, setAuthUser } from "@/redux/authSlice";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import axios from "axios";
@@ -15,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Navbar = () => {
-  // const user = true;
+  const { theme, toggleTheme } = useTheme();
   const { user, isAuthenticated } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,16 +41,17 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-card text-theme shadow-sm sticky top-0 z-50">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <h1 className="text-2xl sm:text-3xl font-bold text-center">
-            <Link to="/" className="flex items-center gap-1">
-              Job <span className="text-blue-600">Portal</span>
+            <Link to="/" className="flex items-center gap-1 text-heading-primary">
+              Job <span className="text-heading-secondary">Portal</span>
             </Link>
           </h1>
         </div>
+       
         {/* Hamburger for mobile */}
         <div className="lg:hidden">
           <button
@@ -58,19 +60,13 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             <span
-              className={`block h-0.5 w-6 bg-black mb-1 transition-all ${
-                menuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
+              className={`block h-0.5 w-6 mb-1 transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""} bg-theme`}
             ></span>
             <span
-              className={`block h-0.5 w-6 bg-black mb-1 transition-all ${
-                menuOpen ? "opacity-0" : ""
-              }`}
+              className={`block h-0.5 w-6 mb-1 transition-all ${menuOpen ? "opacity-0" : ""} bg-theme`}
             ></span>
             <span
-              className={`block h-0.5 w-6 bg-black transition-all ${
-                menuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
+              className={`block h-0.5 w-6 transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""} bg-theme`}
             ></span>
           </button>
         </div>
@@ -82,7 +78,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/admin/companies"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-heading-secondary transition-colors text-theme"
                   >
                     Companies
                   </Link>
@@ -90,7 +86,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/admin/jobs"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-heading-secondary transition-colors text-theme"
                   >
                     Jobs
                   </Link>
@@ -101,7 +97,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-heading-secondary transition-colors text-theme"
                   >
                     Home
                   </Link>
@@ -109,7 +105,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/jobs"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-heading-secondary transition-colors text-theme"
                   >
                     Jobs
                   </Link>
@@ -117,7 +113,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/browse"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-heading-secondary transition-colors text-theme"
                   >
                     Browse
                   </Link>
@@ -125,11 +121,14 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/saved-jobs"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-heading-secondary transition-colors text-theme"
                   >
                     Saved Jobs
                   </Link>
                 </li>
+                <button onClick={toggleTheme} className="btn-theme rounded px-3 py-1 font-medium">
+          {theme === "dark" ? "🌙" : "☀️ "}
+        </button>
               </>
             )}
 
@@ -152,7 +151,7 @@ const Navbar = () => {
                     />
                   </Avatar>
                 </PopoverTrigger>
-                <PopoverContent className="w-70">
+                <PopoverContent className="w-70 bg-card text-theme">
                   <div className="flex gap-4 space-y-2">
                     <Avatar>
                       <AvatarImage
@@ -161,10 +160,10 @@ const Navbar = () => {
                       />
                     </Avatar>
                     <div>
-                      <h4 className="font-medium">
+                      <h4 className="font-medium text-heading-primary">
                         {user?.name || "User Name"}
                       </h4>
-                      <p className="text-sm text-muted-background">
+                      <p className="text-sm text-theme">
                         {user?.email || "user@email.com"}
                       </p>
                     </div>
@@ -194,14 +193,14 @@ const Navbar = () => {
         </div>
         {/* Mobile menu dropdown */}
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white shadow-md border-b z-40 lg:hidden animate-fade-in">
+          <div className="absolute top-16 left-0 w-full bg-card text-theme shadow-md border-b z-40 lg:hidden animate-fade-in">
             <ul className="flex flex-col font-semibold items-start gap-2 px-6 py-4">
               {user && user?.role === "recruiter" ? (
                 <>
                   <li>
                     <Link
                       to="/admin/companies"
-                      className="block py-2 hover:text-blue-600 transition-colors"
+                      className="block py-2 hover:text-heading-secondary transition-colors text-theme"
                       onClick={() => setMenuOpen(false)}
                     >
                       Companies
@@ -210,7 +209,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/admin/jobs"
-                      className="block py-2 hover:text-blue-600 transition-colors"
+                      className="block py-2 hover:text-heading-secondary transition-colors text-theme"
                       onClick={() => setMenuOpen(false)}
                     >
                       Jobs
@@ -222,7 +221,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/"
-                      className="block py-2 hover:text-blue-600 transition-colors"
+                      className="block py-2 hover:text-heading-secondary transition-colors text-theme"
                       onClick={() => setMenuOpen(false)}
                     >
                       Home
@@ -231,7 +230,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/jobs"
-                      className="block py-2 hover:text-blue-600 transition-colors"
+                      className="block py-2 hover:text-heading-secondary transition-colors text-theme"
                       onClick={() => setMenuOpen(false)}
                     >
                       Jobs
@@ -240,23 +239,21 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/browse"
-                      className="block py-2 hover:text-blue-600 transition-colors"
+                      className="block py-2 hover:text-heading-secondary transition-colors text-theme"
                       onClick={() => setMenuOpen(false)}
                     >
                       Browse
                     </Link>
                   </li>
-                  {user && user?.role === "student" && (
-                    <li>
-                      <Link
-                        to="/saved-jobs"
-                        className="block py-2 hover:text-blue-600 transition-colors"
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        Saved Jobs
-                      </Link>
-                    </li>
-                  )}
+                  <li>
+                    <Link
+                      to="/saved-jobs"
+                      className="block py-2 hover:text-heading-secondary transition-colors text-theme"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      Saved Jobs
+                    </Link>
+                  </li>
                 </>
               )}
 
