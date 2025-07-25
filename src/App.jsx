@@ -12,9 +12,11 @@ import CompaniesCreate from "./components/admin/CompaniesCreate";
 import CompaniesSetup from "./components/admin/CompaniesSetup";
 import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
-import Applicants from "./components/admin/Applicants";
+import AllUsers from "./components/admin/AllUsers";
 import ForgotPassword from "./components/ui/ForgotPassword";
 import ResetPassword from "./components/ui/ResetPassword";
+import SavedJobs from "./components/SavedJobs";
+import Applicants from "./components/admin/Applicants";
 // import { useSelector } from 'react-redux';
 // import Loader from './components/ui/Loader';
 
@@ -26,6 +28,7 @@ const appRouter = createBrowserRouter([
   { path: "/description/:id", element: <JobDescription /> },
   { path: "/browse", element: <Browse /> },
   { path: "/profile", element: <Profile /> },
+  { path: "/saved-jobs", element: <SavedJobs /> },
   { path: "*", element: <NotFound /> },
   //admin ke lie
   {
@@ -47,6 +50,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/admin/jobs/create",
     element: <PostJob />,
+  },
+  {
+    path: "/admin/users",
+    element: <AllUsers />,
   },
   {
     path: "/admin/jobs/:id/applicants",

@@ -74,7 +74,6 @@ const Signup = () => {
           `${USER_API_ENDPOINT}/register`,
           formData,
           {
-            headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }
         );
